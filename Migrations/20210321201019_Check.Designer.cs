@@ -6,12 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _NorskOrd_.Data;
 
-
 namespace _NorskOrd_.Migrations
 {
     [DbContext(typeof(NorskOrdDBContext))]
-    [Migration("20210321190023_Init")]
-    partial class Init
+    [Migration("20210321201019_Check")]
+    partial class Check
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

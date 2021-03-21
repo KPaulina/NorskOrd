@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _NorskOrd_.Data;
 
+
 namespace _NorskOrd_.Migrations
 {
     [DbContext(typeof(NorskOrdDBContext))]
