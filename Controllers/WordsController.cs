@@ -16,6 +16,8 @@ namespace NorskOrd.Controllers
         {
             _dbContext = dbContext;
         }
+
+        [HttpGet]
         public ActionResult<IEnumerable<Words>> GetAll()
         {
             var words = _dbContext
@@ -23,6 +25,21 @@ namespace NorskOrd.Controllers
                 .ToList();
 
             return Ok(words);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Words> Get([FromRoute] int id)
+        {
+            var word = _dbContext
+                .Words
+                .FirstOrDefault(w => w.Id == id);
+
+            if(word is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(word);
         }
     }
 }
