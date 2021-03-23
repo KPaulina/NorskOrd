@@ -17,7 +17,7 @@ namespace _NorskOrd_.Data
 
         //private string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=NorskOrd;Trusted_Connection=True";
         public DbSet<Words> Words { get; set; }
-        public DbSet<Points> Points { get; set; }
+        public DbSet<Player> Player { get; set; }
 
         /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _NorskOrd_.Data
 {
-    public class Points
+    public class Player
     {
         public int Id { get; set; }
         public int NumberOfPoints { get; set; }

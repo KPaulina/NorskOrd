@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _NorskOrd_.Data;
 
 namespace _NorskOrd_.Migrations
 {
     [DbContext(typeof(NorskOrdDBContext))]
-    partial class NorskOrdDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210323183313_ChangeInDatabase")]
+    partial class ChangeInDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
