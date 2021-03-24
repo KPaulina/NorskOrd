@@ -35,6 +35,7 @@ namespace _NorskOrd_
      
             });
             services.AddControllers();
+            services.AddAutoMapper(this.GetType().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

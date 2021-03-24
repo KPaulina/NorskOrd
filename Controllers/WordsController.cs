@@ -1,4 +1,5 @@
 ﻿using _NorskOrd_.Data;
+using _NorskOrd_.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
