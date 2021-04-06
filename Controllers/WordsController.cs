@@ -1,5 +1,7 @@
-﻿using _NorskOrd_.Data;
+﻿using _NorskOrd_;
+using _NorskOrd_.Data;
 using _NorskOrd_.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,10 +14,22 @@ namespace NorskOrd.Controllers
     public class WordsController : ControllerBase
     {
         private readonly NorskOrdDBContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public WordsController(NorskOrdDBContext dbContext)
+        public WordsController(NorskOrdDBContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
+        }
+
+        [HttpPost]
+        public ActionResult AddNewWord([FromBody] AddNewWordDto dto)
+        {
+            var word = _mapper.Map<Words>(dto);
+            _dbContext.Words.Add(word);
+            _dbContext.SaveChanges();
+
+            return Created($"/api/words/{word.Id}", null);
         }
 
         [HttpGet]
