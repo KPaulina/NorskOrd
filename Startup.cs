@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _NorskOrd_.Data;
+using _NorskOrd_.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +37,7 @@ namespace _NorskOrd_
             });
             services.AddControllers();
             services.AddAutoMapper(this.GetType().Assembly);
+            services.AddScoped<INorskOrd, NorskOrdService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

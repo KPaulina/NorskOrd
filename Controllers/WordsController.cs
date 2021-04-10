@@ -7,48 +7,58 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _NorskOrd_.Services;
 
 namespace NorskOrd.Controllers
 {
     [Route("api/words")]
     public class WordsController : ControllerBase
     {
-        private readonly NorskOrdDBContext _dbContext;
-        private readonly IMapper _mapper;
+        private readonly INorskOrd _NorskOrdService;
 
-        public WordsController(NorskOrdDBContext dbContext, IMapper mapper)
+        public WordsController(INorskOrd norskOrdService)
         {
-            _dbContext = dbContext;
-            _mapper = mapper;
+            _NorskOrdService = norskOrdService;
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete([FromRoute] int id)
+        {
+            var isDeleted = _NorskOrdService.Delete(id);
+            if (isDeleted)
+            {
+                return NoContent();
+            }
+
+            return NotFound();
+        }
+
 
         [HttpPost]
         public ActionResult AddNewWord([FromBody] AddNewWordDto dto)
         {
-            var word = _mapper.Map<Words>(dto);
-            _dbContext.Words.Add(word);
-            _dbContext.SaveChanges();
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            return Created($"/api/words/{word.Id}", null);
+            var id = _NorskOrdService.Create(dto);
+
+            return Created($"/api/words/{id}", null);
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Words>> GetAll()
         {
-            var words = _dbContext
-                .Words
-                .ToList();
-
-            return Ok(words);
+            var NorskOrdDtos = _NorskOrdService.GetAll();
+            return Ok(NorskOrdDtos);
         }
 
         [HttpGet("{id}")]
         public ActionResult<Words> Get([FromRoute] int id)
         {
-            var word = _dbContext
-                .Words
-                .FirstOrDefault(w => w.Id == id);
 
+            var word = _NorskOrdService.GetById(id);
             if(word is null)
             {
                 return NotFound();
@@ -56,5 +66,7 @@ namespace NorskOrd.Controllers
 
             return Ok(word);
         }
+
+
     }
 }
