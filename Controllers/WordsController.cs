@@ -33,6 +33,22 @@ namespace NorskOrd.Controllers
             return NotFound();
         }
 
+        [HttpPut("{id}")]
+        public ActionResult Update([FromBody] UpdateWordDto dto, [FromRoute]int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var isUpdated = _NorskOrdService.Update(id, dto);
+            if (!isUpdated)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
 
         [HttpPost]
         public ActionResult AddNewWord([FromBody] AddNewWordDto dto)

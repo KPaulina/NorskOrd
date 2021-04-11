@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _NorskOrd_.Data;
+using _NorskOrd_.Models;
 using AutoMapper;
 
 namespace _NorskOrd_.Services
@@ -12,7 +13,8 @@ namespace _NorskOrd_.Services
         AddNewWordDto GetById(int id);
         IEnumerable<AddNewWordDto> GetAll();
         int Create(AddNewWordDto dto);
-        public bool Delete(int id);
+        bool Delete(int id);
+        bool Update(int id, UpdateWordDto dto);
     }
 
     public class NorskOrdService : INorskOrd
@@ -44,6 +46,21 @@ namespace _NorskOrd_.Services
 
             var WordsDtos = _mapper.Map<List<AddNewWordDto>>(words);
             return WordsDtos;
+        }
+
+        public bool Update(int id, UpdateWordDto dto)
+        {
+            var word = _dbContext
+                .Words
+                .FirstOrDefault(w => w.Id == id);
+
+            if (word is null) return false;
+
+            word.WordsToLearn = dto.WordsToLearn;
+            word.WordsTranslated = dto.WordsTranslated;
+
+            _dbContext.SaveChanges();
+            return true;
         }
 
         public bool Delete(int id)
